@@ -11,6 +11,7 @@ await Promise.all([
   cp(resolve(root, "site"), dist, { recursive: true }),
   cp(resolve(root, "pictures"), resolve(dist, "pictures"), { recursive: true }),
   cp(resolve(root, "letters"), resolve(dist, "letters"), { recursive: true }),
+  cp(resolve(root, "assets"), resolve(dist, "assets"), { recursive: true }),
 ]);
 
 console.log("Birthday site assembled in dist/.");

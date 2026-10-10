@@ -8,10 +8,6 @@
   --green-deep: #102f28;
   --blush: #d79b9b;
   --rose: #9f5d62;
-  --cake-pink: #e7a0b1;
-  --cake-pink-deep: #bd697e;
-  --cake-pink-light: #f6c8d2;
-  --cake-icing: #fff5ef;
   --gold: #c39a4b;
   --shadow: 0 24px 55px rgba(44, 31, 26, 0.2);
 }
@@ -150,6 +146,7 @@ h1 {
 .memories__header p:last-child { font-family: "Kalam", cursive; font-size: 1.15rem; }
 
 .memory-grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
@@ -161,7 +158,7 @@ h1 {
   width: min(100%, 1460px);
   height: min(64svh, 620px);
   min-height: 470px;
-  margin: 0 auto;
+  margin: 0 auto clamp(12rem, 19vw, 15rem);
 }
 
 .memory-card:nth-child(1) { grid-area: m1; }
@@ -207,104 +204,32 @@ h1 {
   position: absolute;
   z-index: 4;
   left: 50%;
-  bottom: clamp(3.5rem, 8.5%, 4.75rem);
-  width: clamp(150px, 46%, 220px);
-  height: clamp(98px, 24%, 138px);
+  top: calc(100% + clamp(.65rem, 1.2vw, 1rem));
+  width: clamp(205px, 18vw, 270px);
   transform: translateX(-50%);
-  filter: drop-shadow(0 16px 14px rgba(69, 35, 42, .24));
   pointer-events: none;
 }
 
 .wish-cake__glow {
   position: absolute;
   left: 50%;
-  bottom: 8%;
-  width: 115%;
-  height: 72%;
+  bottom: 1%;
+  width: 106%;
+  height: 28%;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(255, 220, 226, .52), transparent 68%);
+  background: radial-gradient(ellipse, rgba(190, 111, 132, .28), transparent 68%);
   transform: translateX(-50%);
-  filter: blur(9px);
+  filter: blur(11px);
 }
 
-.wish-cake__top-tier,
-.wish-cake__bottom-tier,
-.wish-cake__plate {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.wish-cake__top-tier {
-  z-index: 3;
-  bottom: 42%;
-  width: 57%;
-  height: 37%;
-  border: 1px solid rgba(152, 72, 91, .22);
-  border-radius: 14% 14% 11% 11% / 18% 18% 12% 12%;
-  background:
-    linear-gradient(90deg, transparent 22%, rgba(255,255,255,.2) 34%, transparent 46%),
-    linear-gradient(180deg, var(--cake-pink-light), var(--cake-pink));
-  box-shadow: inset 0 -8px 12px rgba(145, 63, 83, .12);
-}
-
-.wish-cake__bottom-tier {
-  z-index: 2;
-  bottom: 13%;
-  width: 82%;
-  height: 39%;
-  border: 1px solid rgba(152, 72, 91, .24);
-  border-radius: 10% 10% 9% 9% / 16% 16% 12% 12%;
-  background:
-    linear-gradient(90deg, transparent 18%, rgba(255,255,255,.22) 29%, transparent 41%),
-    linear-gradient(180deg, var(--cake-pink-light), var(--cake-pink));
-  box-shadow: inset 0 -10px 14px rgba(145, 63, 83, .15);
-}
-
-.wish-cake__top-frosting,
-.wish-cake__bottom-frosting {
-  position: absolute;
-  z-index: 2;
-  left: -2%;
-  top: -7%;
-  width: 104%;
-  height: 34%;
-  border-radius: 50%;
-  background: linear-gradient(180deg, #fffdf9, var(--cake-icing));
-  box-shadow: 0 2px 0 rgba(184, 102, 122, .12);
-}
-
-.wish-cake__top-frosting::after,
-.wish-cake__bottom-frosting::after {
-  content: "";
-  position: absolute;
-  inset: 48% 5% auto;
-  height: 70%;
-  background:
-    radial-gradient(circle at 9px 0, var(--cake-icing) 0 8px, transparent 8.5px) 0 0 / 25% 100% repeat-x;
-}
-
-.wish-cake__top-piping,
-.wish-cake__bottom-piping {
-  position: absolute;
-  z-index: 3;
-  left: 6%;
-  right: 6%;
-  bottom: 8%;
-  height: 7px;
-  background: radial-gradient(circle, var(--cake-pink-deep) 0 2.5px, transparent 3px) 0 50% / 13px 7px repeat-x;
-  opacity: .72;
-}
-
-.wish-cake__plate {
+.wish-cake img {
+  position: relative;
   z-index: 1;
-  bottom: 4%;
+  display: block;
   width: 100%;
-  height: 16%;
-  border: 1px solid rgba(195, 154, 75, .42);
-  border-radius: 50%;
-  background: linear-gradient(180deg, var(--paper), #efd9d1);
-  box-shadow: inset 0 -4px 5px rgba(159, 93, 98, .1);
+  height: auto;
+  filter: drop-shadow(0 18px 16px rgba(69, 35, 42, .22));
+  user-select: none;
 }
 
 .envelope {
@@ -355,10 +280,10 @@ h1 {
 .letter-dialog__nav button:last-child { justify-self: end; }
 
 @media (max-width: 1050px) {
-  .memory-grid { grid-template-columns: repeat(2, minmax(0,1fr)); grid-template-areas: "m1 m1" "m2 m3" "m4 m5" "m6 m7" "m8 m9"; max-width: 680px; }
+  .memory-grid { grid-template-columns: repeat(2, minmax(0,1fr)); grid-template-areas: "m1 m1" "cake cake" "m2 m3" "m4 m5" "m6 m7" "m8 m9"; max-width: 680px; }
   .memory-grid { grid-template-rows: none; height: auto; min-height: 0; }
   .memory-card__images { aspect-ratio: 3 / 4; }
-  .wish-cake { width: clamp(165px, 37%, 230px); height: clamp(108px, 20%, 145px); bottom: 4rem; }
+  .wish-cake { position: relative; grid-area: cake; left: auto; top: auto; justify-self: center; width: clamp(205px, 42vw, 265px); transform: none; margin: -.35rem 0 .25rem; }
   .letter-dialog__panel { grid-template-columns: 1fr; grid-template-rows: minmax(280px, 48vh) auto auto; }
   .letter-dialog__photo { min-height: 0; }
   .letter-paper { overflow: visible; }
@@ -369,7 +294,7 @@ h1 {
   .memories { padding-inline: 1.2rem; }
   .memory-grid { gap: 2.4rem 1rem; }
   .memory-card { padding: .45rem .45rem .8rem; }
-  .wish-cake { width: clamp(145px, 52%, 180px); height: clamp(96px, 22%, 118px); bottom: 3.2rem; }
+  .wish-cake { width: clamp(185px, 62vw, 230px); margin-top: -.75rem; }
   .envelope { width: 58px; height: 42px; right: -8px; bottom: -15px; }
   .letter-dialog__panel { width: 100%; margin: 0; min-height: 100%; }
   .letter-dialog__photo { padding: .55rem; }

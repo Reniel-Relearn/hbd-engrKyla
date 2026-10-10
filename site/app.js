@@ -49,28 +49,20 @@ function cakeMarkup() {
   return `
     <div class="wish-cake" aria-hidden="true">
       <span class="wish-cake__glow"></span>
-      <span class="wish-cake__top-tier">
-        <span class="wish-cake__top-frosting"></span>
-        <span class="wish-cake__top-piping"></span>
-      </span>
-      <span class="wish-cake__bottom-tier">
-        <span class="wish-cake__bottom-frosting"></span>
-        <span class="wish-cake__bottom-piping"></span>
-      </span>
-      <span class="wish-cake__plate"></span>
+      <img src="assets/pink-rosette-cake.png" alt="" draggable="false">
     </div>
   `;
 }
 
 function buildCards() {
-  elements.grid.innerHTML = content.cards.map((card, index) => `
+  const cardsMarkup = content.cards.map((card, index) => `
     <article class="memory-card${card.featured ? " memory-card--featured" : ""}" data-index="${index}" style="--rotation:${card.rotation}; --delay:${index * 22}ms">
       <div class="memory-card__images${card.images.length > 1 ? " is-collage" : ""}">${imageMarkup(card.images)}</div>
       <p class="memory-card__caption">${card.label}</p>
-      ${card.featured ? cakeMarkup() : ""}
       <button class="envelope" type="button" aria-label="Open letter: ${card.label}" data-letter-index="${index}"></button>
     </article>
   `).join("");
+  elements.grid.innerHTML = `${cardsMarkup}${cakeMarkup()}`;
 
   elements.grid.querySelectorAll("[data-letter-index]").forEach((button) => {
     button.addEventListener("click", () => openLetter(Number(button.dataset.letterIndex)));
