@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6eee3" />
+    <meta name="description" content="A birthday surprise made especially for Kyla." />
+    <title>A Birthday Surprise for Kyla</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Kalam:wght@300;400&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="content.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="paper-grain" aria-hidden="true"></div>
+    <div class="ambient" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <main>
+      <section class="welcome" id="welcome" aria-labelledby="welcome-title">
+        <p class="eyebrow" id="eyebrow"></p>
+        <h1 id="welcome-title"></h1>
+        <p class="introduction" id="introduction"></p>
+
+        <button class="gift-button" id="open-gift" type="button" aria-label="Open your birthday present">
+          <span class="gift" aria-hidden="true">
+            <span class="gift__lid"><span class="gift__bow gift__bow--left"></span><span class="gift__bow gift__bow--right"></span></span>
+            <span class="gift__box"></span>
+            <span class="gift__ribbon"></span>
+            <span class="gift__glow"></span>
+          </span>
+          <span class="gift-button__label" id="open-label"></span>
+        </button>
+      </section>
+
+      <section class="memories" id="memories" aria-labelledby="gallery-title" hidden>
+        <header class="memories__header">
+          <p class="eyebrow">A gift full of memories</p>
+          <h2 id="gallery-title"></h2>
+          <p id="gallery-hint"></p>
+        </header>
+        <div class="memory-grid" id="memory-grid"></div>
+        <footer class="closing">
+          <span class="closing__line" aria-hidden="true"></span>
+          <h2 id="final-title"></h2>
+          <p id="final-message"></p>
+          <button class="text-button" id="replay" type="button"></button>
+        </footer>
+      </section>
+    </main>
+
+    <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+    <dialog class="letter-dialog" id="letter-dialog" aria-labelledby="letter-title">
+      <div class="letter-dialog__backdrop"></div>
+      <div class="letter-dialog__panel">
+        <button class="letter-dialog__close" id="close-letter" type="button" aria-label="Close letter">×</button>
+        <div class="letter-dialog__photo" id="dialog-photo"></div>
+        <article class="letter-paper">
+          <p class="letter-paper__kicker">A letter for you</p>
+          <h2 id="letter-title"></h2>
+          <div class="letter-paper__body" id="letter-body"></div>
+          <div class="letter-paper__flourish" aria-hidden="true">♡</div>
+        </article>
+        <nav class="letter-dialog__nav" aria-label="Memory letters">
+          <button id="previous-letter" type="button">← Previous</button>
+          <span id="letter-count"></span>
+          <button id="next-letter" type="button">Next →</button>
+        </nav>
+      </div>
+    </dialog>
+  </body>
+</html>
