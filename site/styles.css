@@ -221,7 +221,7 @@ h1 {
   position: absolute;
   z-index: 4;
   left: 50%;
-  top: calc(100% + clamp(4.75rem, 6vw, 5.75rem));
+  top: calc(100% + clamp(3.55rem, 4.5vw, 4.25rem));
   width: clamp(205px, 18vw, 270px);
   transform: translateX(-50%);
   pointer-events: none;
@@ -243,21 +243,39 @@ h1 {
   position: absolute;
   z-index: 3;
   left: 50%;
-  top: -7.25em;
+  top: -6.95em;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: .15em;
-  font-size: clamp(10px, .9vw, 13px);
+  gap: .06em;
+  font-size: clamp(9.5px, .78vw, 11.5px);
   transform: translateX(-50%);
   filter: drop-shadow(0 .45em .38em rgba(82, 39, 48, .2));
 }
 
 .wish-candle {
+  --wick-join-offset: 3.2em;
   position: relative;
   display: block;
   width: 5.15em;
   height: 8.55em;
+}
+
+.wish-candle--two { --wick-join-offset: 3.17em; }
+.wish-candle--three { --wick-join-offset: 3.25em; }
+
+.wish-candle::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: -1.3em;
+  width: 1.2em;
+  height: .34em;
+  border-radius: 50%;
+  background: rgba(120, 68, 62, .2);
+  filter: blur(.08em);
+  transform: translateX(-50%);
 }
 
 .wish-candle__number {
@@ -288,9 +306,9 @@ h1 {
   position: absolute;
   z-index: 1;
   left: 50%;
-  bottom: -.2em;
+  bottom: -1.15em;
   width: .45em;
-  height: 2em;
+  height: 3.25em;
   border-radius: 0 0 .2em .2em;
   background: linear-gradient(90deg, #c95e7b, #f5aec2 48%, #b94d69);
   transform: translateX(-50%);
@@ -298,23 +316,24 @@ h1 {
 
 .wish-candle__wick {
   position: absolute;
-  z-index: 4;
-  top: -.42em;
+  z-index: 1;
+  top: calc(-.32em + var(--wick-join-offset));
   left: 50%;
-  width: .16em;
-  height: .85em;
+  width: .19em;
+  height: .62em;
   border-radius: 1em;
-  background: #554039;
+  background: #3f2a24;
+  box-shadow: 0 0 .08em rgba(72, 40, 31, .4);
   transform: translateX(-50%);
 }
 
 .wish-candle__flame {
   position: absolute;
   z-index: 5;
-  top: -2em;
+  top: calc(-2.15em + var(--wick-join-offset));
   left: 50%;
   width: 1.22em;
-  height: 2.05em;
+  height: 1.95em;
   clip-path: polygon(50% 0, 77% 33%, 84% 58%, 70% 84%, 50% 100%, 29% 84%, 16% 58%, 23% 33%);
   background:
     radial-gradient(circle at 50% 74%, #fffbd2 0 13%, transparent 15%),
@@ -326,43 +345,6 @@ h1 {
 }
 
 .wish-candle--three .wish-candle__flame { animation-delay: -.8s; }
-
-.wish-candle__bow {
-  position: absolute;
-  z-index: 4;
-  top: .5em;
-  left: 50%;
-  width: .78em;
-  height: .72em;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #ffe38a, #c99324 62%, #8d5b12);
-  box-shadow: inset .09em .09em .12em rgba(255,255,255,.62);
-  transform: translateX(-50%);
-}
-
-.wish-candle__bow::before,
-.wish-candle__bow::after {
-  content: "";
-  position: absolute;
-  top: -.14em;
-  width: 1.45em;
-  height: 1.02em;
-  border: .08em solid rgba(126, 80, 13, .42);
-  background: linear-gradient(135deg, #ffe9a5, #d9a331 58%, #9a6718);
-  box-shadow: inset .13em .13em .17em rgba(255,255,255,.58);
-}
-
-.wish-candle__bow::before {
-  right: .43em;
-  border-radius: 68% 35% 62% 36%;
-  transform: rotate(18deg);
-}
-
-.wish-candle__bow::after {
-  left: .43em;
-  border-radius: 35% 68% 36% 62%;
-  transform: rotate(-18deg);
-}
 
 @keyframes candle-flicker {
   0% { transform: translateX(-50%) rotate(-3deg) scale(.96, 1.04); opacity: .9; }
@@ -477,7 +459,7 @@ h1 {
   .memory-grid { grid-template-columns: repeat(2, minmax(0,1fr)); grid-template-areas: "m1 m1" "cake cake" "m2 m3" "m4 m5" "m6 m7" "m8 m9"; max-width: 680px; }
   .memory-grid { grid-template-rows: none; height: auto; min-height: 0; margin-bottom: 0; }
   .memory-card__images { aspect-ratio: 3 / 4; }
-  .wish-cake { position: relative; grid-area: cake; left: auto; top: auto; justify-self: center; width: clamp(205px, 42vw, 265px); transform: none; margin: 5.25rem 0 .25rem; }
+  .wish-cake { position: relative; grid-area: cake; left: auto; top: auto; justify-self: center; width: clamp(205px, 42vw, 265px); transform: none; margin: 4rem 0 .25rem; }
   .letter-dialog__panel { grid-template-columns: 1fr; grid-template-rows: minmax(280px, 48vh) auto auto; }
   .letter-dialog__photo { min-height: 0; }
   .letter-paper { overflow: visible; }
@@ -488,7 +470,7 @@ h1 {
   .memories { padding-inline: 1.2rem; }
   .memory-grid { gap: 2.4rem 1rem; }
   .memory-card { padding: .45rem .45rem .8rem; }
-  .wish-cake { width: clamp(185px, 62vw, 230px); margin-top: 4.75rem; }
+  .wish-cake { width: clamp(185px, 62vw, 230px); margin-top: 3.75rem; }
   .envelope { width: 58px; height: 42px; right: -8px; bottom: -15px; }
   .letter-dialog__panel { width: 100%; margin: 0; min-height: 100%; }
   .letter-dialog__photo { padding: .55rem; }
