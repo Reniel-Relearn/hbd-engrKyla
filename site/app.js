@@ -43,8 +43,8 @@ function hydrateCopy() {
   elements.replay.textContent = content.replayButton;
 }
 
-function imageMarkup(images) {
-  return images.map((src, index) => `<img src="${src}" alt="${content.recipient}'s memory${images.length > 1 ? ` ${index + 1}` : ""}" loading="eager">`).join("");
+function imageMarkup(images, label) {
+  return images.map((src, index) => `<img src="${src}" alt="${label}${images.length > 1 ? `, photo ${index + 1} of ${images.length}` : ""}" loading="eager" decoding="async">`).join("");
 }
 
 function cakeMarkup() {
@@ -73,7 +73,7 @@ function cakeMarkup() {
 function buildCards() {
   const cardsMarkup = content.cards.map((card, index) => `
     <article class="memory-card${card.featured ? " memory-card--featured" : ""}" data-index="${index}" style="--rotation:${card.rotation}; --delay:${index * 22}ms">
-      <button class="memory-card__images${card.images.length > 1 ? " is-collage" : ""}" type="button" aria-label="Open letter: ${card.label}" data-letter-index="${index}">${imageMarkup(card.images)}</button>
+      <button class="memory-card__images${card.images.length > 1 ? " is-collage" : ""}" type="button" aria-label="Open letter: ${card.label}" data-letter-index="${index}">${imageMarkup(card.images, card.label)}</button>
       <p class="memory-card__caption">${card.label}</p>
       <button class="envelope" type="button" aria-label="Open letter: ${card.label}" data-letter-index="${index}"></button>
     </article>
@@ -197,11 +197,11 @@ function openLetter(index) {
   opened.add(card.id);
   elements.grid.querySelector(`[data-index="${index}"]`)?.classList.add("is-opened");
   elements.dialogPhoto.className = `letter-dialog__photo${card.images.length > 1 ? " is-collage" : ""}`;
-  elements.dialogPhoto.innerHTML = imageMarkup(card.images);
+  elements.dialogPhoto.innerHTML = imageMarkup(card.images, card.label);
   elements.letterTitle.textContent = card.label;
   elements.letterBody.textContent = letters.get(card.id) || "This letter is waiting for its words.";
   elements.count.textContent = `${index + 1} of ${content.cards.length}`;
-  elements.dialog.showModal();
+  if (!elements.dialog.open) elements.dialog.showModal();
 }
 
 function stepLetter(direction) {
