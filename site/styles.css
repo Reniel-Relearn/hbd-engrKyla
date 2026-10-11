@@ -467,10 +467,10 @@ h1 {
 .letter-dialog__close:focus-visible, .letter-dialog__nav button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 
 @media (min-width: 1051px) {
-  .wish-cake--gallery { bottom: .5%; width: clamp(175px, 13vw, 195px); }
-  .wish-cake--gallery .wish-candles { font-size: clamp(8.2px, .62vw, 9px); }
-  .wish-cake--dialog { bottom: .65rem; width: clamp(215px, 16.5vw, 240px); }
-  .wish-cake--dialog .wish-candles { font-size: clamp(9px, .7vw, 10px); }
+  .wish-cake--gallery { bottom: .2%; width: clamp(135px, 10vw, 155px); }
+  .wish-cake--gallery .wish-candles { font-size: clamp(6.4px, .48vw, 7.2px); }
+  .wish-cake--dialog { bottom: .35rem; width: clamp(170px, 13vw, 190px); }
+  .wish-cake--dialog .wish-candles { font-size: clamp(7px, .55vw, 8px); }
 }
 
 @media (max-width: 1050px) {
