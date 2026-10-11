@@ -388,8 +388,30 @@ h1 {
 .text-button { border: 0; border-bottom: 1px solid var(--gold); background: transparent; color: var(--green-deep); padding: .65rem .1rem; cursor: pointer; font-weight: 700; }
 
 .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 40; overflow: hidden; }
-.confetti i { position: absolute; top: 48%; left: 50%; width: 9px; height: 15px; background: var(--color); animation: confetti-pop 1.8s ease-out forwards; }
-@keyframes confetti-pop { to { transform: translate(var(--x), var(--y)) rotate(var(--turn)); opacity: 0; } }
+.confetti__piece {
+  position: absolute;
+  top: var(--start-y);
+  left: var(--start-x);
+  width: var(--size);
+  height: calc(var(--size) * 1.7);
+  border-radius: 2px;
+  background: var(--color);
+  box-shadow: 0 2px 5px rgba(92, 47, 61, .16);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.25) rotate(0deg);
+  animation: confetti-pop var(--duration) cubic-bezier(.14, .72, .28, 1) var(--delay) forwards;
+  will-change: transform, opacity;
+}
+.confetti__piece--petal { height: calc(var(--size) * 1.25); border-radius: 75% 25% 70% 30%; }
+.confetti__piece--dot { height: var(--size); border-radius: 50%; }
+.confetti__piece--ribbon { border-radius: 45% 8% 45% 8%; }
+@keyframes confetti-pop {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.25) rotate(0deg); }
+  10% { opacity: 1; }
+  48% { opacity: 1; transform: translate(calc(-50% + var(--x)), calc(-50% - var(--lift))) scale(1) rotate(var(--turn-mid)); }
+  82% { opacity: .95; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--x) + var(--drift)), calc(-50% + var(--fall))) scale(.82) rotate(var(--turn)); }
+}
 
 .letter-dialog { width: 100%; max-width: none; height: 100%; max-height: none; padding: 0; border: 0; background: transparent; color: var(--espresso); }
 .letter-dialog::backdrop { background: rgba(13,32,27,.82); backdrop-filter: blur(7px); }
@@ -435,4 +457,5 @@ h1 {
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+  .confetti__piece { animation-duration: var(--duration) !important; }
 }

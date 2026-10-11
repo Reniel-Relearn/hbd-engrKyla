@@ -98,15 +98,32 @@ async function loadLetters() {
 }
 
 function makeConfetti() {
-  const colors = ["#c39a4b", "#d79b9b", "#214a3c", "#fffaf2"];
-  elements.confetti.innerHTML = Array.from({ length: 54 }, (_, index) => {
-    const angle = (Math.PI * 2 * index) / 54 + Math.random() * .3;
-    const distance = 180 + Math.random() * Math.min(innerWidth, 680);
-    const x = Math.cos(angle) * distance;
-    const y = Math.sin(angle) * distance + 130;
-    return `<i style="--x:${x}px;--y:${y}px;--turn:${360 + Math.random() * 720}deg;--color:${colors[index % colors.length]};animation-delay:${Math.random() * .18}s"></i>`;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const colors = ["#f06f9c", "#f5a6bf", "#d86489", "#f8d3df", "#fff8ef", "#d5aa5f"];
+  const shapes = ["ribbon", "ribbon", "petal", "dot"];
+  const pieceCount = reducedMotion ? 18 : Math.min(86, Math.max(58, Math.round(innerWidth / 15)));
+
+  elements.confetti.innerHTML = Array.from({ length: pieceCount }, (_, index) => {
+    const stream = index % 7 === 0 ? "left" : index % 7 === 1 ? "right" : "center";
+    const fromSide = stream !== "center";
+    const direction = stream === "left" ? 1 : stream === "right" ? -1 : Math.random() < .5 ? -1 : 1;
+    const startX = stream === "left" ? 7 + Math.random() * 7 : stream === "right" ? 86 + Math.random() * 7 : 46 + Math.random() * 8;
+    const startY = fromSide ? 47 + Math.random() * 22 : 51 + Math.random() * 8;
+    const horizontalReach = fromSide ? innerWidth * (.2 + Math.random() * .24) : innerWidth * (.08 + Math.random() * .36);
+    const x = direction * horizontalReach;
+    const lift = reducedMotion ? 35 + Math.random() * 55 : 120 + Math.random() * Math.min(260, innerHeight * .32);
+    const fall = reducedMotion ? 90 + Math.random() * 90 : 220 + Math.random() * Math.min(360, innerHeight * .42);
+    const drift = direction * (12 + Math.random() * 48);
+    const size = fromSide ? 6 + Math.random() * 7 : 7 + Math.random() * 9;
+    const duration = reducedMotion ? .75 + Math.random() * .2 : 1.85 + Math.random() * .65;
+    const delay = reducedMotion ? Math.random() * .08 : Math.random() * .24;
+    const turn = direction * (420 + Math.random() * 760);
+    const shape = shapes[(index + Math.floor(Math.random() * shapes.length)) % shapes.length];
+
+    return `<i class="confetti__piece confetti__piece--${shape}" style="--start-x:${startX}vw;--start-y:${startY}vh;--x:${x}px;--lift:${lift}px;--fall:${fall}px;--drift:${drift}px;--turn-mid:${turn * .55}deg;--turn:${turn}deg;--size:${size}px;--duration:${duration}s;--delay:${delay}s;--color:${colors[index % colors.length]}"></i>`;
   }).join("");
-  setTimeout(() => { elements.confetti.innerHTML = ""; }, 2300);
+
+  window.setTimeout(() => { elements.confetti.innerHTML = ""; }, reducedMotion ? 1200 : 3100);
 }
 
 function animateCards() {
