@@ -2,6 +2,8 @@ const content = window.BIRTHDAY_SITE;
 const letters = new Map();
 const opened = new Set();
 let activeIndex = 0;
+let confettiBurstTimer;
+let ambientConfettiTimer;
 
 const $ = (selector) => document.querySelector(selector);
 const elements = {
@@ -103,7 +105,12 @@ function makeConfetti() {
   const shapes = ["ribbon", "ribbon", "petal", "dot"];
   const pieceCount = reducedMotion ? 18 : Math.min(86, Math.max(58, Math.round(innerWidth / 15)));
 
-  elements.confetti.innerHTML = Array.from({ length: pieceCount }, (_, index) => {
+  window.clearTimeout(confettiBurstTimer);
+  elements.confetti.querySelector(".confetti__burst")?.remove();
+
+  const burst = document.createElement("div");
+  burst.className = "confetti__burst";
+  burst.innerHTML = Array.from({ length: pieceCount }, (_, index) => {
     const stream = index % 7 === 0 ? "left" : index % 7 === 1 ? "right" : "center";
     const fromSide = stream !== "center";
     const direction = stream === "left" ? 1 : stream === "right" ? -1 : Math.random() < .5 ? -1 : 1;
@@ -122,8 +129,43 @@ function makeConfetti() {
 
     return `<i class="confetti__piece confetti__piece--${shape}" style="--start-x:${startX}vw;--start-y:${startY}vh;--x:${x}px;--lift:${lift}px;--fall:${fall}px;--drift:${drift}px;--turn-mid:${turn * .55}deg;--turn:${turn}deg;--size:${size}px;--duration:${duration}s;--delay:${delay}s;--color:${colors[index % colors.length]}"></i>`;
   }).join("");
+  elements.confetti.append(burst);
 
-  window.setTimeout(() => { elements.confetti.innerHTML = ""; }, reducedMotion ? 1200 : 3100);
+  confettiBurstTimer = window.setTimeout(() => burst.remove(), reducedMotion ? 1200 : 3100);
+}
+
+function startAmbientConfetti() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const colors = ["#f06f9c", "#f5a6bf", "#d86489", "#f8d3df", "#fff8ef", "#d5aa5f"];
+  const shapes = ["ribbon", "petal", "dot"];
+  const pieceCount = Math.min(30, Math.max(18, Math.round(innerWidth / 55)));
+  const ambient = document.createElement("div");
+  ambient.className = "confetti__ambient";
+  ambient.innerHTML = Array.from({ length: pieceCount }, (_, index) => {
+    const entry = index % 6 === 0 ? "left" : index % 6 === 1 ? "right" : "top";
+    const startX = entry === "left" ? -2 + Math.random() * 8 : entry === "right" ? 94 + Math.random() * 8 : 3 + Math.random() * 94;
+    const startY = entry === "top" ? -18 - Math.random() * 35 : 2 + Math.random() * 38;
+    const direction = entry === "left" ? 1 : entry === "right" ? -1 : Math.random() < .5 ? -1 : 1;
+    const drift = direction * (24 + Math.random() * 78);
+    const duration = 10.5 + Math.random() * 7;
+    const delay = -(Math.random() * duration);
+    const turn = direction * (260 + Math.random() * 520);
+    const size = 5 + Math.random() * 7;
+    const sway = direction * (8 + Math.random() * 22);
+    const shape = shapes[index % shapes.length];
+
+    return `<i class="confetti__ambient-piece confetti__ambient-piece--${shape}" style="--ambient-x:${startX}vw;--ambient-y:${startY}vh;--ambient-drift:${drift}px;--ambient-sway:${sway}px;--ambient-turn-mid:${turn / 2}deg;--ambient-turn:${turn}deg;--ambient-size:${size}px;--ambient-duration:${duration}s;--ambient-delay:${delay}s;--ambient-color:${colors[index % colors.length]}"></i>`;
+  }).join("");
+
+  elements.confetti.querySelector(".confetti__ambient")?.remove();
+  elements.confetti.append(ambient);
+}
+
+function stopConfetti() {
+  window.clearTimeout(confettiBurstTimer);
+  window.clearTimeout(ambientConfettiTimer);
+  elements.confetti.replaceChildren();
 }
 
 function animateCards() {
@@ -141,6 +183,7 @@ function revealGift() {
   if (elements.open.classList.contains("is-open")) return;
   elements.open.classList.add("is-open");
   makeConfetti();
+  ambientConfettiTimer = window.setTimeout(startAmbientConfetti, 2500);
   setTimeout(() => elements.welcome.classList.add("is-opening"), 520);
   setTimeout(() => {
     elements.welcome.hidden = true;
@@ -169,6 +212,7 @@ function stepLetter(direction) {
 }
 
 function replay() {
+  stopConfetti();
   elements.grid.querySelectorAll(".memory-card").forEach((card) => card.classList.remove("is-bursting"));
   elements.memories.hidden = true;
   elements.welcome.hidden = false;
