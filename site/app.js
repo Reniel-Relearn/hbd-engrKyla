@@ -49,6 +49,22 @@ function cakeMarkup() {
   return `
     <div class="wish-cake" aria-hidden="true">
       <span class="wish-cake__glow"></span>
+      <span class="wish-candles">
+        <span class="wish-candle wish-candle--two">
+          <span class="wish-candle__flame"></span>
+          <span class="wish-candle__wick"></span>
+          <span class="wish-candle__stem"></span>
+          <span class="wish-candle__number">2</span>
+          <span class="wish-candle__bow"></span>
+        </span>
+        <span class="wish-candle wish-candle--three">
+          <span class="wish-candle__flame"></span>
+          <span class="wish-candle__wick"></span>
+          <span class="wish-candle__stem"></span>
+          <span class="wish-candle__number">3</span>
+          <span class="wish-candle__bow"></span>
+        </span>
+      </span>
       <img src="assets/pink-rosette-cake.png" alt="" draggable="false">
     </div>
   `;
