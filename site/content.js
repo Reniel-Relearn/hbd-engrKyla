@@ -20,7 +20,7 @@ window.BIRTHDAY_SITE = {
     },
     {
       id: "02-collage",
-      label: "Four little versions of you",
+      label: "Lovely, Sweet, KK",
       images: [
         "pictures/02-collage-a.jpg",
         "pictures/02-collage-b.jpg",
