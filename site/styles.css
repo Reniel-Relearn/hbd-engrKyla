@@ -158,7 +158,7 @@ h1 {
   width: min(100%, 1460px);
   height: min(64svh, 620px);
   min-height: 470px;
-  margin: 0 auto clamp(18rem, 26vw, 22rem);
+  margin: 0 auto clamp(5rem, 9vw, 8rem);
 }
 
 .memory-card:nth-child(1) { grid-area: m1; }
@@ -194,6 +194,7 @@ h1 {
 }
 
 .memory-card__images {
+  position: relative;
   display: grid;
   flex: 1;
   width: 100%;
@@ -209,8 +210,8 @@ h1 {
   transition: transform .22s ease, box-shadow .22s ease;
 }
 .memory-card__images.is-collage { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
-.memory-card__images img { width: 100%; height: 100%; object-fit: cover; display: block; min-width: 0; min-height: 0; transition: transform .35s ease; }
-.memory-card__images:hover img { transform: scale(1.025); }
+.memory-card__images > img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block; min-width: 0; min-height: 0; transition: transform .35s ease; }
+.memory-card__images:hover > img { transform: scale(1.025); }
 .memory-card__images:active { transform: scale(.992); }
 .memory-card__images:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; box-shadow: 0 0 0 7px rgba(255, 250, 242, .82); }
 .memory-card__caption { margin: .75rem .45rem 0; font: 600 clamp(1rem, 1.7vw, 1.35rem)/1 "Caveat", cursive; text-align: center; }
@@ -221,10 +222,18 @@ h1 {
   position: absolute;
   z-index: 4;
   left: 50%;
-  top: calc(100% + clamp(3.55rem, 4.5vw, 4.25rem));
-  width: clamp(205px, 18vw, 270px);
   transform: translateX(-50%);
   pointer-events: none;
+}
+
+.wish-cake--gallery {
+  bottom: 1%;
+  width: clamp(165px, 16vw, 235px);
+}
+
+.wish-cake--dialog {
+  bottom: clamp(.7rem, 1.5vw, 1.15rem);
+  width: clamp(210px, 20vw, 285px);
 }
 
 .wish-cake__glow {
@@ -441,7 +450,7 @@ h1 {
 .letter-dialog::backdrop { background: rgba(13,32,27,.82); backdrop-filter: blur(7px); }
 .letter-dialog__backdrop { position: fixed; inset: 0; }
 .letter-dialog__panel { position: relative; z-index: 1; width: min(1180px, calc(100% - 2rem)); height: min(760px, calc(100dvh - 2rem)); max-height: calc(100dvh - 2rem); margin: 1rem auto; display: grid; grid-template-columns: minmax(0, .92fr) minmax(320px, 1.08fr); grid-template-rows: minmax(0, 1fr) auto; align-items: stretch; filter: drop-shadow(0 30px 70px rgba(0,0,0,.35)); }
-.letter-dialog__photo { background: #172e27; padding: clamp(.7rem, 2vw, 1.25rem); display: grid; min-height: 520px; }
+.letter-dialog__photo { position: relative; isolation: isolate; overflow: hidden; background: #172e27; padding: clamp(.7rem, 2vw, 1.25rem); display: grid; min-height: 520px; }
 .letter-dialog__photo > img { width: 100%; height: 100%; min-height: 0; object-fit: cover; }
 .letter-dialog__photo.is-collage { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: .4rem; }
 .letter-paper { position: relative; padding: clamp(2.25rem, 6vw, 5rem); background: linear-gradient(90deg, rgba(196,154,75,.07) 1px, transparent 1px), var(--paper); background-size: 28px 100%; overflow: auto; }
@@ -458,10 +467,11 @@ h1 {
 .letter-dialog__close:focus-visible, .letter-dialog__nav button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 
 @media (max-width: 1050px) {
-  .memory-grid { grid-template-columns: repeat(2, minmax(0,1fr)); grid-template-areas: "m1 m1" "cake cake" "m2 m3" "m4 m5" "m6 m7" "m8 m9"; max-width: 680px; }
+  .memory-grid { grid-template-columns: repeat(2, minmax(0,1fr)); grid-template-areas: "m1 m1" "m2 m3" "m4 m5" "m6 m7" "m8 m9"; max-width: 680px; }
   .memory-grid { grid-template-rows: none; height: auto; min-height: 0; margin-bottom: 0; }
   .memory-card__images { aspect-ratio: 3 / 4; }
-  .wish-cake { position: relative; grid-area: cake; left: auto; top: auto; justify-self: center; width: clamp(205px, 42vw, 265px); transform: none; margin: 4rem 0 .25rem; }
+  .wish-cake--gallery { bottom: 1%; width: clamp(190px, 38vw, 250px); }
+  .wish-cake--dialog { bottom: .55rem; width: clamp(200px, 36vw, 270px); }
   .letter-dialog { overflow-y: auto; }
   .letter-dialog__panel { grid-template-columns: 1fr; grid-template-rows: minmax(280px, 48svh) auto auto; height: auto; max-height: none; min-height: 100%; }
   .letter-dialog__photo { min-height: 0; }
@@ -475,7 +485,8 @@ h1 {
   .memories { padding-inline: 1.2rem; }
   .memory-grid { gap: 2.4rem 1rem; }
   .memory-card { padding: .45rem .45rem .8rem; }
-  .wish-cake { width: clamp(185px, 62vw, 230px); margin-top: 3.75rem; }
+  .wish-cake--gallery { bottom: 1%; width: clamp(175px, 54vw, 215px); }
+  .wish-cake--dialog { bottom: .55rem; width: clamp(170px, 52vw, 215px); }
   .envelope { width: 58px; height: 42px; right: -8px; bottom: -15px; }
   .letter-dialog__panel { width: 100%; margin: 0; min-height: 100%; }
   .letter-dialog__photo { padding: .55rem; }
