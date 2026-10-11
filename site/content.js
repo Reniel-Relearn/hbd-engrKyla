@@ -1,7 +1,7 @@
 window.BIRTHDAY_SITE = {
   recipient: "Kyla",
   eyebrow: "A little birthday surprise",
-  title: "For Engr. Kyla",
+  title: "For My Engr. Kyla",
   introduction: "I gathered a few moments that remind me how special you are.",
   openButton: "Open your present",
   galleryTitle: "Little moments, kept with love",

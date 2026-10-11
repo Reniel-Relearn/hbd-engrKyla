@@ -75,7 +75,7 @@ function cakeMarkup() {
 function buildCards() {
   const cardsMarkup = content.cards.map((card, index) => `
     <article class="memory-card${card.featured ? " memory-card--featured" : ""}" data-index="${index}" style="--rotation:${card.rotation}; --delay:${index * 22}ms">
-      <div class="memory-card__images${card.images.length > 1 ? " is-collage" : ""}">${imageMarkup(card.images)}</div>
+      <button class="memory-card__images${card.images.length > 1 ? " is-collage" : ""}" type="button" aria-label="Open letter: ${card.label}" data-letter-index="${index}">${imageMarkup(card.images)}</button>
       <p class="memory-card__caption">${card.label}</p>
       <button class="envelope" type="button" aria-label="Open letter: ${card.label}" data-letter-index="${index}"></button>
     </article>
