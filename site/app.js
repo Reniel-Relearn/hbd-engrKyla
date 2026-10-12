@@ -47,33 +47,10 @@ function imageMarkup(images, label) {
   return images.map((src, index) => `<img src="${src}" alt="${label}${images.length > 1 ? `, photo ${index + 1} of ${images.length}` : ""}" loading="eager" decoding="async">`).join("");
 }
 
-function cakeMarkup(context) {
-  return `
-    <span class="wish-cake wish-cake--${context}" aria-hidden="true">
-      <span class="wish-cake__glow"></span>
-      <span class="wish-candles">
-        <span class="wish-candle wish-candle--two">
-          <span class="wish-candle__flame"></span>
-          <span class="wish-candle__wick"></span>
-          <span class="wish-candle__stem"></span>
-          <span class="wish-candle__number">2</span>
-        </span>
-        <span class="wish-candle wish-candle--three">
-          <span class="wish-candle__flame"></span>
-          <span class="wish-candle__wick"></span>
-          <span class="wish-candle__stem"></span>
-          <span class="wish-candle__number">3</span>
-        </span>
-      </span>
-      <img src="assets/pink-rosette-cake.png" alt="" draggable="false">
-    </span>
-  `;
-}
-
 function buildCards() {
   const cardsMarkup = content.cards.map((card, index) => `
     <article class="memory-card${card.featured ? " memory-card--featured" : ""}" data-index="${index}" style="--rotation:${card.rotation}; --delay:${index * 22}ms">
-      <button class="memory-card__images${card.images.length > 1 ? " is-collage" : ""}" type="button" aria-label="Open letter: ${card.label}" data-letter-index="${index}">${imageMarkup(card.images, card.label)}${card.featured ? cakeMarkup("gallery") : ""}</button>
+      <button class="memory-card__images${card.images.length > 1 ? " is-collage" : ""}" type="button" aria-label="Open letter: ${card.label}" data-letter-index="${index}">${imageMarkup(card.images, card.label)}</button>
       <p class="memory-card__caption">${card.label}</p>
       <button class="envelope" type="button" aria-label="Open letter: ${card.label}" data-letter-index="${index}"></button>
     </article>
@@ -197,7 +174,7 @@ function openLetter(index) {
   opened.add(card.id);
   elements.grid.querySelector(`[data-index="${index}"]`)?.classList.add("is-opened");
   elements.dialogPhoto.className = `letter-dialog__photo${card.images.length > 1 ? " is-collage" : ""}`;
-  elements.dialogPhoto.innerHTML = `${imageMarkup(card.images, card.label)}${card.featured ? cakeMarkup("dialog") : ""}`;
+  elements.dialogPhoto.innerHTML = imageMarkup(card.images, card.label);
   elements.letterTitle.textContent = card.label;
   elements.letterBody.textContent = letters.get(card.id) || "This letter is waiting for its words.";
   elements.count.textContent = `${index + 1} of ${content.cards.length}`;
