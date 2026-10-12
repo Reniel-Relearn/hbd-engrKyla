@@ -13,7 +13,7 @@ window.BIRTHDAY_SITE = {
     {
       id: "01-center",
       label: "For you, on your birthday",
-      images: ["pictures/01-center.jpg"],
+      images: ["pictures/01-center-static.webp"],
       letter: "letters/01-center.txt",
       featured: true,
       rotation: "-1deg"
